@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.work.dao.TMapMapper" >
+<resultMap type="provinceCount" id="count">
+<id column="id" property="id"/>  
+<result column="date" property="date"/>
+<result column="province00" property="province00"/>
+<result column="province01" property="province01"/>
+<result column="province02" property="province02"/>
+<result column="province03" property="province03"/>
+<result column="province04" property="province04"/>
+<result column="province05" property="province05"/>
+<result column="province06" property="province06"/>
+<result column="province07" property="province07"/>
+<result column="province08" property="province08"/>
+<result column="province09" property="province09"/>
+<result column="province10" property="province10"/>
+<result column="province11" property="province11"/>
+<result column="province12" property="province12"/>
+<result column="province13" property="province13"/>
+<result column="province14" property="province14"/>
+<result column="province15" property="province15"/>
+<result column="province16" property="province16"/>
+<result column="province17" property="province17"/>
+<result column="province18" property="province18"/>
+<result column="province19" property="province19"/>
+<result column="province20" property="province20"/>
+<result column="province21" property="province21"/>
+<result column="province22" property="province22"/>
+<result column="province23" property="province23"/>
+<result column="province24" property="province24"/>
+<result column="province25" property="province25"/>
+<result column="province26" property="province26"/>
+<result column="province27" property="province27"/>
+<result column="province28" property="province28"/>
+<result column="province29" property="province29"/>
+<result column="province30" property="province30"/>
+<result column="province31" property="province31"/>
+<result column="province32" property="province32"/>
+<result column="province33" property="province33"/>
+  </resultMap>
+  <resultMap type="com.work.model.Keyword" id="demand">
+<id column="id" property="id"/>  
+<result column="demand_id" property="demand_id"/>
+<result column="content" property="content"/>
+<result column="level" property="level"/>
+<result column="front_level_id" property="front_level_id"/>
+  </resultMap>
+    <select id="selectProvinceId"   resultType="com.work.model.provinceId">
+  	select city_id,province_name from province_data
+ 	</select>
+ 	<select id="selectProvinceCount" parameterType="String" resultMap="count">
+  	select * from province_count where date = #{date}
+ 	</select>
+	<select id="selectProvinceCountBetween" parameterType="Map" resultMap="count">
+	select * from province_count where date &gt;= #{value1} and date  &lt;= #{value2}
+ 	</select>
+ 	    <select id="selectCheckinProvinceCount" resultMap="count">
+	select * from ${provincename} where date &gt;= #{value1} and date  &lt;= #{value2}
+ 	</select>
+ 	<select id="selectDemand" resultType = "com.work.model.Keyword" >
+  	select demand_id,content,level,front_level_id from demand 
+ 	</select>
+ 	    <select id="selectCheckinProvinceCountOneday" resultMap="count">
+	select * from ${provincename} where date = #{value}
+	 	</select>
+	 	 	<select id="selectKeyword" resultType = "com.work.model.Keyword" >
+  	select demand_id from demand where content = #{value}
+ 	</select>
+ 	<insert id="keywordinsert" parameterType="com.work.model.Keyword">
+		insert into demand (demand_id,content,level,create_user,front_level_id) values(#{demand_id},#{content},#{level},#{create_user},#{front_level_id})
+	</insert>
+	 	<select id="selectuserrequest" resultType = "com.work.model.UserRequest" >
+  	select * from user_request
+ 	</select>
+ 	<select id="getKeyword"  resultType="com.work.model.Keyword" >
+	    select demand_id,front_time,behind_time from user_request where content=#{content} and cityname=#{cityname}
+	</select>
+	<select id="gettime" resultType = "com.work.model.Keyword" >
+  	select demand_id,content,front_time,behind_time,cityname from user_request where creater=#{creater} and content=#{content} and cityname=#{cityname}
+ 	</select>
+ 	<select id="getcity" resultType = "com.work.model.Keyword" >
+  	select demand_id,content,front_time,behind_time,cityname from user_request where creater=#{creater} and content=#{content} 
+ 	</select>
+	<select id="selectRequest" resultType = "com.work.model.Keyword" >
+  	select demand_id,content,front_time,behind_time,cityname from user_request where creater=#{creater}
+ 	</select>
+ 		<insert id="requestinsert" parameterType="com.work.model.UserRequest">
+		insert into user_request (demand_id,content,front_time,behind_time,creater,cityname,relationship) values(#{demand_id},#{content},#{front_time},#{behind_time},#{creater},#{cityname},#{relationship})
+	</insert>
+</mapper>

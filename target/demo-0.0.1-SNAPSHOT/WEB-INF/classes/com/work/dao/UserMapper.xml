@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.work.dao.UserMapper">
+  <select id="selectUser" parameterType="com.work.model.User" resultType="com.work.model.User" >
+    select user_name,passwd from user where user_name=#{user_name} and passwd=#{passwd}
+  </select>
+ 
+ <update id="addLoginCount" parameterType="com.work.model.User">
+  update user set login_count=user.login_count+1 where user_name=#{user_name} and passwd=#{passwd}
+ </update>
+ 
+<select id="checkEmail" resultType="com.work.model.User">
+select email from user where email=#{email}
+</select>
+
+<select id="checkUserName" resultType="com.work.model.User">
+select user_name from user where user_name=#{username}
+</select>
+
+<insert id="regist">
+INSERT INTO tbl_name (col1,col2) VALUES(15,col1*2);
+insert into user (user_name,passwd,telephone,email) values(#{user_name},#{passwd},#{telephone},#{email})
+</insert>
+   </mapper>
